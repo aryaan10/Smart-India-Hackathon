@@ -1,0 +1,153 @@
+{% extends "layouts/base.html" %} {% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+<!-- <style>
+        /* Set display to none for image*/
+        #sih {
+            display: none;
+        }
+    </style> -->
+<style>
+  #output {
+    text-align: center;
+    display: none;
+  }
+  .data-card {
+    border: 2px solid #333; /* Adding a border for better visibility */
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #f0f0f0; /* Light gray background color */
+  }
+  .normal {
+    background-color: #61cc61; /* Light green for normal files */
+  }
+  .trojan {
+    background-color: #a82a2a; /* Light red for trojan files */
+  }
+  #image {
+    max-width: 100%;
+    height: auto;
+  }
+  #text {
+    color: black; /* Change text color to black for better visibility */
+    font-weight: bold;
+    font-size: 24px;
+  }
+</style>
+<!-- <form class="p-3 text-center" action='/', method="post" enctype="multipart/form-data">
+        <input class="form-control" type="file" name="datasetfile" >
+        <input class="btn btn-primary mt-3"type="submit" value="Predict Output" >
+    </form> -->
+<!-- <h1>Power Consumption Plot</h1>
+    <img src="{{ plot_path }}" alt="Power Consumption Plot"> -->
+
+<form
+  class="p-3 text-center"
+  action="/"
+  ,
+  method="post"
+  enctype="multipart/form-data"
+>
+  <input class="form-control" type="file" name="datasetfile" />
+  <input class="btn btn-primary mt-3" type="submit" value="Predict output" />
+</form>
+
+{% if prediction %}
+<p>No Trojan Detected!</p>
+{% else %}
+<p>Trojan detected!</p>
+{% endif %}
+
+<!-- Display the image on the dashboard -->
+<img src="{{ url_for('static', filename='my_plot.png') }}" alt="My Plot" />
+
+<!-- <div id="output">
+        <div class="data-card">
+            <p id="text"></p>
+            <img id="image" src="" alt="Image">
+        </div>
+    </div> -->
+
+<!-- <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card bg-yellow-100 border-0 shadow">
+                <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                    <div class="d-block mb-3 mb-sm-0">
+                        <div class="fs-5 fw-normal mb-2">Trojan not activated</div>
+                    </div>
+
+                </div>
+                <div class="card-body p-2">
+                    <img src="{{url_for('static', filename='normal.png')}}" align="middle" />
+                </div>
+
+            </div>
+        </div>
+        <button type="button" onclick="show()" id="btnID">
+            <a class="btn btn-secondary text-dark btn-sm me-2">Activate Trojan</a>
+        </button>
+        <div id = 'sih' class="col-12 mb-4">
+            <div class="card bg-yellow-100 border-0 shadow">
+                <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                    <div class="d-block mb-3 mb-sm-0">
+                        <div class="fs-5 fw-normal mb-2">Trojan activated</div>
+                    </div>
+
+                </div>
+                <div class="card-body p-2">
+                    <img src="{{url_for('static', filename='trojan.png')}}" align="middle" />
+                </div>
+            </div>
+        </div> -->
+<!-- </div> -->
+<!-- <script>
+        // function show() {
+        //     /* Access image by id and change
+        //     the display property to block*/
+        //     document.getElementById('sih')
+        //         .style.display = "block";
+        //     document.getElementById('btnID')
+        //         .style.display = "none";
+        // }
+        document.getElementById("uploadButton").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default button click behavior
+
+            // Handle form submission via JavaScript
+            var fileInput = document.getElementById("fileInput");
+            var output = document.getElementById("output");
+
+            var file = fileInput.files[0];
+
+            if (file) {
+                var fileName = file.name;
+
+                if (fileName === "Benign_csv_captured_trace_1.csv") {
+                    // Display an image and text for normal files
+                    document.getElementById("image").src = "{{url_for('static', filename='Benign.jpg')}}";
+                    document.getElementById("text").textContent = "No Trojan detected!";
+                    output.style.display = "block";
+                    output.querySelector(".data-card").classList.add("normal");
+                } else if (fileName === "Trojan_csv_captured_trace_1.csv") {
+                    // Display an image and text for trojan files
+                    document.getElementById("image").src = "{{url_for('static', filename='Trojan.jpg')}}";
+                    document.getElementById("text").textContent = "Trojan detected!";
+                    output.style.display = "block";
+                    output.querySelector(".data-card").classList.add("trojan");
+                } else {
+                    // Handle other file names or conditions
+                    output.style.display = "none"; // Hide the output
+                }
+            }
+        });
+
+    </script> -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
